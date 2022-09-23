@@ -1,8 +1,17 @@
 <?php
-namespace RosaireKota\Convertor;
-use RosaireKota\Convertor\contracts\ConvertNumberToLetterInterface;
-
+namespace RosaireKota\Convertor\Providers;
+use RosaireKota\Convertor\Contracts\ConvertNumberToLetterInterface;
 class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
+
+
+    protected static $instance = null;
+
+    public static function getInstance (){
+        if (self::$instance === null) {
+            self::$instance = new ConvertNumberToEnLetters();
+        }
+        return self::$instance;
+    }
 
     public function convertNumberToEnLetters($value): string
     {   $result ="";

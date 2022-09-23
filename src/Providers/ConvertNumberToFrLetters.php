@@ -1,10 +1,18 @@
 <?php
-namespace RosaireKota\Convertor;
-use RosaireKota\Convertor\contracts\ConvertNumberToLetterInterface;
+namespace RosaireKota\Convertor\Providers;
+use RosaireKota\Convertor\Contracts\ConvertNumberToLetterInterface;
+class  ConvertNumberToFrLetters implements  ConvertNumberToLetterInterface{
+    
+    protected static $instance = null;
 
-class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
+    public static function getInstance (){
+        if (self::$instance === null) {
+            self::$instance = new ConvertNumberToFrLetters();
+        }
+        return self::$instance;
+    }
 
-    public function convertNumberToChiLetters($value): string
+    public function convertNumberToFrLetters($value): string
     {   $result ="";
         $numberConvertedToString = (string)($value);
         $strLength = strlen(trim($numberConvertedToString));
@@ -37,9 +45,9 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
      */
     public function convertBelowThousand($number): string
     {
-        $units = ['','yī','èr','sān','sì','wǔ','liù','qī','bā','jiǔ','shí','shí yī','shí èr','shí sān','shí sì','shí wǔ','shí liù','shí qī','shí bā','shí jiǔ'];
+        $units = ['','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quartoze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
 
-        $tens = ['','shí','èr shí','sān shí','sì shí','wǔ shí','liù shí','qī shí','bā shí','jiǔ shí'];
+        $tens = ['','dix','vingt','trente','quarante','cinquante','soixante','soixante','quatre-vingt','quatre-vingt'];
 
         $unit = $number%10;
         $ten = ($number%100 - $unit)/10;
@@ -51,7 +59,7 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
 
         if($number === 0)
         {
-            return 'líng';
+            return 'zero';
         }else
         {
             $unitOut = ($unit === 1 && $ten>0 && $ten !== 8 ? 'et-' : '')."".$units[$unit];
@@ -63,7 +71,7 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
             }
             else if($ten === 7 || $ten === 9)
             {
-                $tenOut = $tens[$ten] ."".'-'."". ($ten === 7 && $unit === 1 ? '和-' : '' ) ."". $units[10 + $unit];
+                $tenOut = $tens[$ten] ."".'-'."". ($ten === 7 && $unit === 1 ? 'et-' : '' ) ."". $units[10 + $unit];
                 $unitOut = '';
             }else
             {
@@ -71,7 +79,7 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
             }
             $tenOut .= ($unit === 0 && $ten === 8 ? 's' : '');
 
-            $hundOut = ($hund > 1 ? $units[$hund]."".'-':'')."".($hund > 0 ?'yì bǎi':'')."".(($hund>1 && $ten == 0 && $unit == 0)? 's' : '');
+            $hundOut = ($hund > 1 ? $units[$hund]."".'-':'')."".($hund > 0 ?'cent':'')."".(($hund>1 && $ten == 0 && $unit == 0)? 's' : '');
 
             return $hundOut ."". ($hundOut && $tenOut ? '-' : '') ."". $tenOut ."". ($hundOut && $unitOut || $tenOut && $unitOut ? '-' : '') ."". $unitOut;
         }
@@ -92,13 +100,13 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
 
         if((int)($start) === 1)
         {
-            $strResultStart = " yì qiān ";
+            $strResultStart = " mille ";
         }else if((int)($start) === 0)
         {
             $strResultStart = "";
         }else
         {
-            $strResultStart = $this->convertBelowThousand((int)($start))." yì qiān ";
+            $strResultStart = $this->convertBelowThousand((int)($start))." milles ";
         }
         if((int)($end) !== 0)
         {
@@ -123,13 +131,13 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
 
         if((int)($strStart)==1)
         {
-            $strResultStart = $this->convertBelowThousand((int)($strStart))." yìbǎi wàn ";
+            $strResultStart = $this->convertBelowThousand((int)($strStart))." million ";
         }else if((int)($strStart) == 0)
         {
             $strResultStart = "";
         }else
         {
-            $strResultStart = $this->convertBelowThousand((int)($strStart))." yìbǎi wàn ";
+            $strResultStart = $this->convertBelowThousand((int)($strStart))." millions ";
         }
 
         if((int)($end)==0 && (int)($middle)==0)
@@ -159,13 +167,13 @@ class  ConvertNumberToChiLetters implements  ConvertNumberToLetterInterface{
 
         if((int)$strBegin === 1)
         {
-            $strResultStart = $this->convertBelowThousand((int)($strBegin))." shí yì ";
+            $strResultStart = $this->convertBelowThousand((int)($strBegin))." milliard ";
         }else if((int)($strBegin) == 0)
         {
             $strResultStart = "";
         }else
         {
-            $strResultStart = $this->convertBelowThousand((int)($strBegin))." shí yì ";
+            $strResultStart = $this->convertBelowThousand((int)($strBegin))." milliards ";
         }
 
         if((int)($end)==0 && (int)($middle)==0 && (int)($strStart)==0)
