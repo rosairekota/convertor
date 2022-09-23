@@ -4,9 +4,9 @@ use RosaireKota\Convertor\contracts\ConvertNumberToLetterInterface;
 
 class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
 
-    public function convertNumberToEnLetters($number): string
+    public function convertNumberToEnLetters($value): string
     {   $result ="";
-        $numberConvertedToString = (string)($number);
+        $numberConvertedToString = (string)($value);
         $strLength = strlen(trim($numberConvertedToString));
 
         if($strLength >0 && $strLength <4)
@@ -37,9 +37,9 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
      */
     public function convertBelowThousand($number): string
     {
-        $units = ['','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quartoze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
+        $units = ['','one','two','three','four','five','six','seven','eight','nine','dix','ten','eleven','Twelve','thirteen','fourteen','fifteen','seventeen','eighteen','nineteen'];
 
-        $tens = ['','dix','vingt','trente','quarante','cinquante','soixante','soixante','quatre-vingt','quatre-vingt'];
+        $tens = ['','ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
 
         $unit = $number%10;
         $ten = ($number%100 - $unit)/10;
@@ -54,7 +54,7 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
             return 'zero';
         }else
         {
-            $unitOut = ($unit === 1 && $ten>0 && $ten !== 8 ? 'et-' : '')."".$units[$unit];
+            $unitOut = ($unit === 1 && $ten>0 && $ten !== 8 ? 'and-' : '')."".$units[$unit];
 
             if($ten === 1 && $unit > 0)
             {
@@ -63,7 +63,7 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
             }
             else if($ten === 7 || $ten === 9)
             {
-                $tenOut = $tens[$ten] ."".'-'."". ($ten === 7 && $unit === 1 ? 'et-' : '' ) ."". $units[10 + $unit];
+                $tenOut = $tens[$ten] ."".'-'."". ($ten === 7 && $unit === 1 ? 'and-' : '' ) ."". $units[10 + $unit];
                 $unitOut = '';
             }else
             {
@@ -71,7 +71,7 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
             }
             $tenOut .= ($unit === 0 && $ten === 8 ? 's' : '');
 
-            $hundOut = ($hund > 1 ? $units[$hund]."".'-':'')."".($hund > 0 ?'cent':'')."".(($hund>1 && $ten == 0 && $unit == 0)? 's' : '');
+            $hundOut = ($hund > 1 ? $units[$hund]."".'-':'')."".($hund > 0 ?'One hundred':'')."".(($hund>1 && $ten == 0 && $unit == 0)? 's' : '');
 
             return $hundOut ."". ($hundOut && $tenOut ? '-' : '') ."". $tenOut ."". ($hundOut && $unitOut || $tenOut && $unitOut ? '-' : '') ."". $unitOut;
         }
@@ -92,13 +92,13 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
 
         if((int)($start) === 1)
         {
-            $strResultStart = " mille ";
+            $strResultStart = " thousand ";
         }else if((int)($start) === 0)
         {
             $strResultStart = "";
         }else
         {
-            $strResultStart = $this->convertBelowThousand((int)($start))." milles ";
+            $strResultStart = $this->convertBelowThousand((int)($start))." thousands ";
         }
         if((int)($end) !== 0)
         {
@@ -159,13 +159,13 @@ class  ConvertNumberToEnLetters implements  ConvertNumberToLetterInterface{
 
         if((int)$strBegin === 1)
         {
-            $strResultStart = $this->convertBelowThousand((int)($strBegin))." milliard ";
+            $strResultStart = $this->convertBelowThousand((int)($strBegin))." billion ";
         }else if((int)($strBegin) == 0)
         {
             $strResultStart = "";
         }else
         {
-            $strResultStart = $this->convertBelowThousand((int)($strBegin))." milliards ";
+            $strResultStart = $this->convertBelowThousand((int)($strBegin))." billions ";
         }
 
         if((int)($end)==0 && (int)($middle)==0 && (int)($strStart)==0)
