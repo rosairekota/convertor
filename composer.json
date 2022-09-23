@@ -1,0 +1,20 @@
+{
+  "name": "rosairekota/convert_number_to_etters",
+  "description": "Simple Library to convert number to letter in French and English languages",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "rkota (rosaire kota)",
+      "email": "rosairekota@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RosaireKota\\Convertor\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.4|^8.1"
+  }
+}
