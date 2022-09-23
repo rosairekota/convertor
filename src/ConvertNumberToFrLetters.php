@@ -4,9 +4,9 @@ use RosaireKota\Convertor\contracts\ConvertNumberToLetterInterface;
 
 class  ConvertNumberToFrLetters implements  ConvertNumberToLetterInterface{
 
-    public function convertNumberToFrLetters($number): string
+    public function convertNumberToFrLetters($value): string
     {   $result ="";
-        $numberConvertedToString = (string)($number);
+        $numberConvertedToString = (string)($value);
         $strLength = strlen(trim($numberConvertedToString));
 
         if($strLength >0 && $strLength <4)
