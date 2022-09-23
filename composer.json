@@ -1,5 +1,5 @@
 {
-  "name": "rosairekota/convert_number_to_etters",
+  "name": "rosairekota/convertor",
   "description": "Simple Library to convert number to letter in French and English languages",
   "minimum-stability": "stable",
   "license": "MIT",
