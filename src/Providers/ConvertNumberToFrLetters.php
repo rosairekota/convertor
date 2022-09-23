@@ -1,6 +1,6 @@
 <?php
 namespace RosaireKota\Convertor\Providers;
-use RosaireKota\Convertor\Contracts\ConvertNumberToLetterInterface;
+use RosaireKota\Convertor\contracts\ConvertNumberToLetterInterface;
 class  ConvertNumberToFrLetters implements  ConvertNumberToLetterInterface{
     
     protected static $instance = null;

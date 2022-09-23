@@ -1,5 +1,5 @@
 <?php
-namespace RosaireKota\Convertor\Contracts;
+namespace RosaireKota\Convertor\contracts;
 
 interface ConvertNumberToLetterInterface
 {
