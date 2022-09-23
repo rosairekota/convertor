@@ -1,6 +1,6 @@
 {
   "name": "rosairekota/convertor",
-  "description": "Simple Library to convert number to letter in French and English languages",
+  "description": "Simple Library to convert number to letter in French, English or Chinesse languages",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
