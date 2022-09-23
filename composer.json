@@ -3,6 +3,7 @@
   "description": "Simple Library to convert number to letter in French, English or Chinesse languages",
   "minimum-stability": "stable",
   "license": "MIT",
+  "version": "1.0",
   "authors": [
     {
       "name": "rkota (rosaire kota)",
